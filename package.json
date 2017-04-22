@@ -1,0 +1,11 @@
+{
+  "name": "console-app",
+  "version": "0.0.1",
+  "description": "learn node",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node main.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
