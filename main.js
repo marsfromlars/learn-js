@@ -1,3 +1,6 @@
+
+require( './global' )
+
 var currentInstallation = '';
 
 exports.start = () => {
@@ -11,6 +14,7 @@ exports.start = () => {
 
 Current installation : ${currentInstallation}        
         `,
+        isTopMenu: true,
 
         actions: {
             'I': {

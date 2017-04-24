@@ -26,7 +26,7 @@ User home : ${os.homedir()}
                 }
             }
         },
-        exitAction: () => {
+        backAction: () => {
             require( './main' ).start();
         }
     }

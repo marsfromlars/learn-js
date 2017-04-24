@@ -4,13 +4,6 @@
  */
 exports.menu = function ( config ) {
 
-    const readline = require('readline');
-
-    const rl = readline.createInterface({
-        input: process.stdin,
-        output: process.stdout
-    });
-
     var line = function() {
         console.log( '-----------------------------------------------------' );
     }
@@ -27,7 +20,11 @@ exports.menu = function ( config ) {
         }
 
         console.log( "" );
+        if( !config.isTopMenu ) {
+            console.log( "B ....... Back" );
+        }
         console.log( "X ....... Exit" );
+
         line();
         console.log( "" );
 
@@ -35,17 +32,19 @@ exports.menu = function ( config ) {
 
             option = option ? option.toUpperCase() : "";
 
-            if( option == "X" ) {
+            if( option == "X"  ) {
                 rl.close();
-                if( config.exitAction ) {
-                    config.exitAction();
+            }
+            else if( option == "B" && !config.isTopMenu ) {
+                if( config.backAction ) {
+                    config.backAction();
                 }
             }
             else {
                 var action = config.actions[ option ];
                 if( action ) {
                     if( action.isExit ) {
-                        rl.close();
+                        //rl.close();
                     }
                     action.action();
                     if( !action.isExit ) {
