@@ -1,80 +1,51 @@
-const readline = require('readline');
+var currentInstallation = '';
 
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
+exports.start = () => {
 
-var mainActions = {
-    'D': {
-        name: 'Download latest version',
-        action: function() {
-            console.log( 'Downloading...' );
+    const settings = require( './settings' )
+    const selectInstallation = require( './selectInstallation' )
+
+    var config = {
+        
+        title: `BSM Software Manager
+
+Current installation : ${currentInstallation}        
+        `,
+
+        actions: {
+            'I': {
+                name: 'Select current installation',
+                action: () => { selectInstallation.start(); },
+                isExit: true
+            },
+            'D': {
+                name: 'Download latest version',
+                action: function() {
+                    console.log( 'Downloading...' );
+                }
+            },
+            'C': {
+                name: 'Check for latest version',
+                action: function() {
+                    console.log( 'Checking...' );
+                }
+            },
+            'U': {
+                name: 'Update software',
+                action: function() {
+                    console.log( 'Updating...' );
+                }
+            },
+            'S': {
+                name: 'Settings',
+                action: () => { settings.settings(); },
+                isExit: true
+            } 
         }
-    },
-    'C': {
-        name: 'Check for latest version',
-        action: function() {
-            console.log( 'Checking...' );
-        }
-    },
-    'U': {
-        name: 'Update software',
-        action: function() {
-            console.log( 'Updating...' );
-        }
-    },
-    'S': {
-        name: 'Settings',
-        action: function() {
-            settings();
-        }
-    } 
-};
+    };
 
-var line = function() {
-    console.log( '-----------------------------------------------------' );
-}
-
-var mainMenu = function() {
-    
-    console.log( "" );
-    line();
-    console.log( "BSM Software Manager" );
-    line();
-
-    for( a in mainActions ) {
-        console.log( a + ' ....... ' + mainActions[a].name );
-    }
-
-    console.log( "" );
-    console.log( "X ....... Exit" );
-    line();
-    console.log( "" );
-
-    rl.question('Enter selection> ', (option) => {
-
-        option = option ? option.toUpperCase() : "";
-
-        if( option == "X" ) {
-            console.log( "Bye bye." );
-            console.log( "" );
-            rl.close();
-        }
-        else {
-            var action = mainActions[ option ];
-            if( action ) {
-                action.action();
-            }
-            else {
-                console.log( "Unknown action " + option );
-            }
-            mainMenu();
-        }
-
-    });
+    require( './menu' ).menu( config );
 
 }
 
-mainMenu();
-
+exports.start()

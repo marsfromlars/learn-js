@@ -2,7 +2,7 @@
  * READ-EVAL-PRINT-LOOP for printMenu selection
  * 
  */
-function repl( config ) {
+exports.menu = function ( config ) {
 
     const readline = require('readline');
 
@@ -36,19 +36,26 @@ function repl( config ) {
             option = option ? option.toUpperCase() : "";
 
             if( option == "X" ) {
-                console.log( "Bye bye." );
-                console.log( "" );
                 rl.close();
+                if( config.exitAction ) {
+                    config.exitAction();
+                }
             }
             else {
                 var action = config.actions[ option ];
                 if( action ) {
+                    if( action.isExit ) {
+                        rl.close();
+                    }
                     action.action();
+                    if( !action.isExit ) {
+                        printMenu();
+                    }
                 }
                 else {
                     console.log( "Unknown action " + option );
+                    printMenu();
                 }
-                printMenu();
             }
 
         });
@@ -57,4 +64,5 @@ function repl( config ) {
 
     printMenu();
 
-};
+}
+
