@@ -8,11 +8,11 @@ exports.start = () => {
     const settings = require( './settings' )
     const selectInstallation = require( './selectInstallation' )
 
-    var config = {
+    var menu = {
         
         title: `BSM Software Manager
 
-Current installation : ${currentInstallation}        
+Current installation : ${_config.data.currentInstallation}        
         `,
         isTopMenu: true,
 
@@ -39,16 +39,11 @@ Current installation : ${currentInstallation}
                 action: function() {
                     console.log( 'Updating...' );
                 }
-            },
-            'S': {
-                name: 'Settings',
-                action: () => { settings.settings(); },
-                isExit: true
             } 
         }
     };
 
-    require( './menu' ).menu( config );
+    _menu.start( menu );
 
 }
 

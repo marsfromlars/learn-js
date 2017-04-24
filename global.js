@@ -10,7 +10,9 @@ global.readline = require( 'readline' ); // input output via console
 
 // --- OWN GLOBAL MODULES -----------------
 
-global.config = require( './config' )
+global._config = require( './config' )
+global._menu = require( './cliMenu' ) // a CLI base menu
+global._main = require( './main' ) // main menu
 
 // --- GLOBAL VARIABLES -------------------
 

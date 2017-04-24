@@ -3,7 +3,8 @@
  * 
   */
 
-let data = {
+exports.data = {
+    currentInstallation: '',
     installations: {}
 }
 
@@ -21,8 +22,9 @@ exports.load = () => {
  * Save configuration to ~/.bsm_installer/config.json
  */
 exports.save = () => {
-
+    console.log( 'saving' )
 }
+
 
 exports.addPath = ( newPath ) => {
 

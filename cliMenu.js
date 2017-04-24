@@ -1,8 +1,8 @@
 /**
- * READ-EVAL-PRINT-LOOP for printMenu selection
+ * command line menu
  * 
  */
-exports.menu = function ( config ) {
+exports.start = function ( config ) {
 
     var line = function() {
         console.log( '-----------------------------------------------------' );
@@ -10,7 +10,10 @@ exports.menu = function ( config ) {
 
     var printMenu = function() {
         
-        console.log( "" );
+        for( var i = 0; i < 8; i++ ) {
+            console.log( "" );
+        }
+        
         line();
         console.log( config.title );
         line();

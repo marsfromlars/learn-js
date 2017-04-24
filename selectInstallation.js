@@ -3,18 +3,6 @@
  * 
  */
 
-let fs = require( 'fs' )
-let os = require( 'os' )
-
-let config = global.config
-
-let homeDir = os.homedir()
-let installationsDir = homeDir + '/.bsm_installer/installations'
-let rl = global.rl
-
-//let mkdirp = require( 'mkdirp' )
-//mkdirp( installationsDir )
-
 exports.start = () => {
 
     let actions = {
@@ -22,7 +10,7 @@ exports.start = () => {
             name: 'Create new installation',
             action: () => {
                 rl.question( 'Enter path of installation', ( newPath ) => {
-                    config.addPath( newPath )
+                    _config.addPath( newPath )
                 })
             }
         },
@@ -41,26 +29,30 @@ exports.start = () => {
         for( i in files ) {
             let file = files[ i ]
             let path = installationsDir + '/' + file
-            if( fs.lstatSync( file ).isDirectory() ) {
+            if( fs.lstatSync( path ).isDirectory() ) {
                 actions[ '' + index ] = {
-                    name: 'Select installation: ' + file
+                    name: 'Select installation: ' + file,
+                    action: () => {
+                        _config.data.currentInstallation = file
+                        _config.save()
+                    }
                 }
             }
         }
     }
 
-    require( './config' ).load()
+    _config.load()
 
-    var config = {
+    var menu = {
         title: `Select current installation
 `,
         actions: actions,
         backAction: () => {
-            require( './main' ).start();
+            _main.start();
         }
     }
 
-    require( './menu' ).menu( config );
+    _menu.start( menu );
 
 }
 
