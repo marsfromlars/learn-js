@@ -3,27 +3,33 @@
  * 
   */
 
-exports.data = {
-    currentInstallation: '',
-    installations: {}
+exports.config = {
+
+    data: {
+        currentInstallation: '',
+        installations: {}
+    },
+
+    /**
+     * Load configuration file ~/.bsm_installer/config.json
+     */
+    load = () => {
+
+        mkdirp( installationsDir )
+        let installations = fs.readdirSync( installationsDir )
+
+    },
+
+    /**
+     * Save configuration to ~/.bsm_installer/config.json
+     */
+    save = () => {
+        console.log( 'saving' )
+    }
+
 }
 
-/**
- * Load configuration file ~/.bsm_installer/config.json
- */
-exports.load = () => {
 
-    mkdirp( installationsDir )
-    let installations = fs.readdirSync( installationsDir )
-
-}
-
-/**
- * Save configuration to ~/.bsm_installer/config.json
- */
-exports.save = () => {
-    console.log( 'saving' )
-}
 
 
 exports.addPath = ( newPath ) => {
